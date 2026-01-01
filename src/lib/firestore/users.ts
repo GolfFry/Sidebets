@@ -1,4 +1,4 @@
-import { getDoc, setDoc, updateDoc, Timestamp } from 'firebase/firestore'
+import { getDoc, setDoc, updateDoc } from 'firebase/firestore'
 import { User, TeeBox } from '@/types'
 import { userDoc } from './collections'
 

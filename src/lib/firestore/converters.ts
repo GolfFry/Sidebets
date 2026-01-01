@@ -2,7 +2,6 @@ import {
   Timestamp,
   FirestoreDataConverter,
   QueryDocumentSnapshot,
-  DocumentSnapshot,
 } from 'firebase/firestore'
 import {
   User,
