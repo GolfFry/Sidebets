@@ -1,0 +1,3 @@
+export default function AuthCallbackPage() {
+  return <div className="flex items-center justify-center min-h-screen"><p>Processing...</p></div>
+}
