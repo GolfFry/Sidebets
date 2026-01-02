@@ -1,93 +1,407 @@
-# SideBet
+<div align="center">
 
+# ⛳ GolfSettled
 
+### Track golf bets with friends. Settle up later.
 
-## Getting started
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![Firebase](https://img.shields.io/badge/Firebase-Firestore-orange?logo=firebase)](https://firebase.google.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8?logo=tailwindcss)](https://tailwindcss.com/)
+[![PWA](https://img.shields.io/badge/PWA-Enabled-5A0FC8?logo=pwa)](https://web.dev/progressive-web-apps/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+<br />
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+[**Live Demo**](#) · [**Documentation**](./docs/) · [**Report Bug**](../../issues) · [**Request Feature**](../../issues)
 
-## Add your files
+<br />
 
-* [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-* [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+<img src="./docs/assets/mockup.png" alt="GolfSettled App Mockup" width="600" />
+
+</div>
+
+---
+
+## 🎯 What is GolfSettled?
+
+**GolfSettled** is a mobile-first Progressive Web App (PWA) for tracking golf side bets between friends. It works offline on the course, calculates complex bet types automatically, and provides a clear ledger for settling up after the round.
+
+> **No real money is handled by this app.** It's a ledger and calculator — settle up offline via Venmo, Zelle, or cash.
+
+### The Problem
+
+Every golf group has "that guy" who tracks bets on a crumpled scorecard, argues about presses, and somehow always wins the math. Disputes happen. Friendships are tested.
+
+### The Solution
+
+GolfSettled provides:
+- 📱 **Mobile-first scoring** — Big buttons for gloved hands in bright sunlight
+- ⛳ **Nassau + Skins** — Automatic calculation of complex bet types
+- 📴 **Offline-first** — Works in dead zones, syncs when connected
+- 📊 **Clear ledger** — Who owes whom, no disputes
+- 🔗 **Easy sharing** — Invite friends with a link, no app store needed
+
+---
+
+## ✨ Features
+
+### Core Features (MVP)
+
+| Feature | Description |
+|---------|-------------|
+| **🏌️ Match Creation** | Set up rounds with course, tee time, and bet configuration |
+| **👥 Group Invites** | Share a link to invite players — no accounts required to view |
+| **📝 Live Scoring** | Enter scores hole-by-hole with optimistic updates |
+| **🏆 Nassau Bets** | Front 9, Back 9, Overall with auto-press support |
+| **💰 Skins Games** | Carryover skins with tie handling |
+| **📊 Ledger** | Running balance between all players across matches |
+| **📴 Offline Mode** | Full functionality without connectivity |
+| **📱 PWA Install** | Add to home screen, works like a native app |
+
+### Coming Soon
+
+- [ ] Handicap integration (GHIN lookup)
+- [ ] Course database with pars
+- [ ] Group/league management
+- [ ] Historical stats and trends
+- [ ] Venmo/Zelle deep links
+
+---
+
+## 🛠 Tech Stack
+
+| Layer | Technology | Why |
+|-------|------------|-----|
+| **Framework** | Next.js 15 (App Router) | React Server Components, edge-ready |
+| **Language** | TypeScript 5.3 | Type safety, better DX |
+| **Styling** | Tailwind CSS 3.4 | Utility-first, mobile responsive |
+| **Backend** | Firebase (Auth, Firestore) | Real-time sync, generous free tier |
+| **Hosting** | Vercel | Zero-config Next.js deployment |
+| **PWA** | next-pwa + Workbox | Offline support, installable |
+| **Validation** | Zod | Runtime type validation |
+
+### Architecture
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/frye-group/golf/sidebet.git
-git branch -M main
-git push -uf origin main
+┌─────────────────────────────────────────────────────────┐
+│                      Client (PWA)                        │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐     │
+│  │   Next.js   │  │  React Query │  │   Workbox   │     │
+│  │  App Router │  │  (caching)   │  │  (offline)  │     │
+│  └─────────────┘  └─────────────┘  └─────────────┘     │
+└─────────────────────────────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────┐
+│                    Firebase Backend                      │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐     │
+│  │    Auth     │  │  Firestore  │  │  Functions  │     │
+│  │ (Magic Link)│  │  (Real-time)│  │  (Triggers) │     │
+│  └─────────────┘  └─────────────┘  └─────────────┘     │
+└─────────────────────────────────────────────────────────┘
 ```
 
-## Integrate with your tools
+---
 
-* [Set up project integrations](https://gitlab.com/frye-group/golf/sidebet/-/settings/integrations)
+## 🚀 Quick Start
 
-## Collaborate with your team
+### Prerequisites
 
-* [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-* [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-* [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-* [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-* [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+- Node.js 20+ 
+- npm 10+
+- Firebase project (free tier works)
 
-## Test and Deploy
+### 1. Clone the Repository
 
-Use the built-in continuous integration in GitLab.
+```bash
+git clone https://github.com/yourusername/golfsettled.git
+cd golfsettled
+```
 
-* [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-* [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-* [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-* [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-* [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+### 2. Install Dependencies
 
-***
+```bash
+npm install
+```
 
-# Editing this README
+### 3. Configure Environment
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+```bash
+cp .env.example .env.local
+```
 
-## Suggestions for a good README
+Edit `.env.local` with your Firebase credentials:
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+```env
+# Firebase (from Firebase Console → Project Settings)
+NEXT_PUBLIC_FIREBASE_API_KEY=your-api-key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-project-id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=123456789
+NEXT_PUBLIC_FIREBASE_APP_ID=1:123456789:web:abc123
 
-## Name
-Choose a self-explaining name for your project.
+# App
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+### 4. Set Up Firebase
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+```bash
+# Install Firebase CLI
+npm install -g firebase-tools
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+# Login to Firebase
+firebase login
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+# Initialize project (select Firestore, Auth, Functions)
+firebase init
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+# Deploy security rules
+firebase deploy --only firestore:rules
+```
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+### 5. Start Development Server
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+```bash
+npm run dev
+```
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+Open [http://localhost:3000](http://localhost:3000) 🎉
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+### 6. (Optional) Start Firebase Emulators
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+```bash
+npm run emulators
+```
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+---
 
-## License
-For open source projects, say how it is licensed.
+## 📁 Project Structure
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+```
+golfsettled/
+├── src/
+│   ├── app/                    # Next.js App Router pages
+│   │   ├── (auth)/             # Auth routes (login, callback)
+│   │   ├── match/              # Match routes
+│   │   │   ├── [id]/           # Match detail, scorecard, results
+│   │   │   └── new/            # Create match wizard
+│   │   ├── ledger/             # Balance/settlement page
+│   │   ├── settings/           # User profile
+│   │   ├── layout.tsx          # Root layout with providers
+│   │   └── page.tsx            # Home dashboard
+│   │
+│   ├── components/
+│   │   ├── ui/                 # Design system (Button, Card, etc.)
+│   │   ├── layout/             # Layout components (Nav, Header)
+│   │   ├── match/              # Match-specific components
+│   │   ├── scorecard/          # Scoring components
+│   │   ├── ledger/             # Balance components
+│   │   └── offline/            # Offline indicators
+│   │
+│   ├── hooks/                  # Custom React hooks
+│   │   ├── useAuth.ts          # Authentication state
+│   │   ├── useMatch.ts         # Match data & actions
+│   │   ├── useScores.ts        # Score management
+│   │   └── useLedger.ts        # Balance calculations
+│   │
+│   ├── lib/
+│   │   ├── firebase.ts         # Firebase initialization
+│   │   ├── auth/               # Auth config & provider
+│   │   ├── firestore/          # Data access functions
+│   │   ├── betting/            # Bet calculation logic
+│   │   ├── validators/         # Zod schemas
+│   │   └── utils.ts            # Helper functions
+│   │
+│   └── types/                  # TypeScript definitions
+│       └── database.ts         # Firestore document types
+│
+├── functions/                  # Firebase Cloud Functions
+│   └── src/
+│       └── index.ts            # Triggers & callable functions
+│
+├── public/
+│   ├── manifest.json           # PWA manifest
+│   └── icons/                  # App icons
+│
+├── docs/                       # Documentation
+│   ├── ARCHITECTURE.md
+│   ├── DATA_MODEL.md
+│   ├── BETTING_RULES.md
+│   └── ...
+│
+├── firestore.rules             # Security rules
+├── tailwind.config.ts          # Tailwind configuration
+├── next.config.js              # Next.js configuration
+└── package.json
+```
+
+---
+
+## 📖 Documentation
+
+| Document | Description |
+|----------|-------------|
+| [Architecture](./docs/ARCHITECTURE.md) | System design and data flow |
+| [Data Model](./docs/DATA_MODEL.md) | Firestore collections and schemas |
+| [Betting Rules](./docs/BETTING_RULES.md) | Nassau, Skins, and scoring logic |
+| [Security](./docs/SECURITY.md) | Auth flows and Firestore rules |
+| [Testing](./docs/TESTING.md) | Test strategy and commands |
+| [Onboarding](./docs/ONBOARDING.md) | New developer setup guide |
+
+---
+
+## 🧪 Development
+
+### Available Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Production build |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |
+| `npm run typecheck` | Run TypeScript compiler |
+| `npm run test` | Run test suite |
+| `npm run emulators` | Start Firebase emulators |
+
+### Code Quality
+
+```bash
+# Run all checks (before committing)
+npm run lint && npm run typecheck && npm run build
+```
+
+### Git Workflow
+
+```bash
+# Create feature branch
+git checkout -b feature/your-feature
+
+# Make changes, commit with conventional commits
+git commit -m "feat: add skins calculation"
+
+# Push and create PR
+git push origin feature/your-feature
+```
+
+**Commit Convention:**
+- `feat:` New feature
+- `fix:` Bug fix
+- `docs:` Documentation
+- `style:` Formatting
+- `refactor:` Code restructure
+- `test:` Tests
+- `chore:` Maintenance
+
+---
+
+## 📱 PWA Installation
+
+### iOS (Safari)
+1. Open app in Safari
+2. Tap Share button
+3. Tap "Add to Home Screen"
+
+### Android (Chrome)
+1. Open app in Chrome
+2. Tap menu (⋮)
+3. Tap "Add to Home Screen"
+
+### Desktop (Chrome/Edge)
+1. Look for install icon in address bar
+2. Click "Install"
+
+---
+
+## 🔐 Security
+
+- **Authentication:** Firebase Auth with Magic Link (passwordless) and Google OAuth
+- **Authorization:** Firestore security rules enforce participant-only access
+- **Data:** No payment data stored — we're a ledger, not a payment processor
+- **Validation:** All inputs validated with Zod on client and server
+
+See [SECURITY.md](./docs/SECURITY.md) for details.
+
+---
+
+## 🗺 Roadmap
+
+### Phase 1: MVP (Current)
+- [x] Project setup and architecture
+- [x] Authentication (Magic Link + Google)
+- [x] Match creation and management
+- [x] Basic scoring interface
+- [x] Nassau bet calculations
+- [x] Skins bet calculations
+- [x] Ledger with balances
+- [x] Offline support
+- [x] PWA installation
+
+### Phase 2: Enhanced UX
+- [ ] Course database integration
+- [ ] GHIN handicap lookup
+- [ ] Push notifications
+- [ ] Dark mode
+- [ ] Haptic feedback
+
+### Phase 3: Social Features
+- [ ] Groups/leagues
+- [ ] Invite via SMS/email
+- [ ] Recurring games
+- [ ] Leaderboards
+- [ ] Stats dashboard
+
+### Phase 4: Growth
+- [ ] Public profiles
+- [ ] Course reviews
+- [ ] Tournament mode
+- [ ] API for integrations
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read our contributing guidelines before submitting a PR.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### Development Philosophy
+
+- **MVP First:** Ship fast, iterate based on feedback
+- **Mobile First:** Design for phones, enhance for desktop
+- **Offline First:** Assume spotty connectivity
+- **Type Safety:** TypeScript everywhere
+- **Accessibility:** 48px tap targets, high contrast
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🙏 Acknowledgments
+
+- [Next.js](https://nextjs.org/) — The React Framework
+- [Firebase](https://firebase.google.com/) — Backend infrastructure
+- [Tailwind CSS](https://tailwindcss.com/) — Utility-first CSS
+- [Vercel](https://vercel.com/) — Deployment platform
+- All the golf groups who gave feedback
+
+---
+
+<div align="center">
+
+**Built with ☕ and ⛳ by golfers, for golfers**
+
+[⬆ Back to Top](#-golfsettled)
+
+</div>

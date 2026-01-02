@@ -29,7 +29,9 @@
       "Bash(git reset:*)",
       "Bash(git clean:*)",
       "Bash(git commit:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(git config:*)",
+      "Bash(SKIP_BUILD_STATIC_GENERATION=1 npm run build:*)"
     ]
   }
 }
