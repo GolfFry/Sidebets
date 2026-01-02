@@ -15,3 +15,5 @@ export {
 export type { CardProps } from './Card'
 
 export { Badge } from './Badge'
+
+export { Modal } from './Modal'
