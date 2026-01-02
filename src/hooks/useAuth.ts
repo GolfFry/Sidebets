@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth'
-import { getAuthInstance } from '@/lib/auth/config'
+import { auth } from '@/lib/firebase'
 import { User } from '@/types'
 import { getUser, createUser, updateUserActivity } from '@/lib/firestore/users'
 
@@ -24,8 +24,6 @@ export function useAuth(): UseAuthReturn {
   const [error, setError] = useState<Error | null>(null)
 
   useEffect(() => {
-    const auth = getAuthInstance()
-
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUserData) => {
       try {
         setFirebaseUser(firebaseUserData)

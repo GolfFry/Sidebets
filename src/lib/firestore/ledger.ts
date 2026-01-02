@@ -7,11 +7,19 @@ import {
   where,
   collectionGroup,
   getFirestore,
+  Firestore,
 } from 'firebase/firestore'
 import { LedgerEntry } from '@/types'
 import { ledgerEntryDoc, ledgerCollection } from './collections'
 
-const db = getFirestore()
+let db: Firestore | undefined
+
+function getDb(): Firestore {
+  if (!db) {
+    db = getFirestore()
+  }
+  return db
+}
 
 // ============ READ ============
 
@@ -49,10 +57,10 @@ export async function getUserLedger(userId: string): Promise<LedgerEntry[]> {
   try {
     // Query where user is either creditor or debtor
     const fromUserQuery = query(
-      collectionGroup(db, 'ledger'),
+      collectionGroup(getDb(), 'ledger'),
       where('fromUserId', '==', userId),
     )
-    const toUserQuery = query(collectionGroup(db, 'ledger'), where('toUserId', '==', userId))
+    const toUserQuery = query(collectionGroup(getDb(), 'ledger'), where('toUserId', '==', userId))
 
     const [fromSnapshots, toSnapshots] = await Promise.all([
       getDocs(fromUserQuery),

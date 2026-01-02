@@ -1,5 +1,4 @@
 import {
-  getAuth,
   sendSignInLinkToEmail,
   isSignInWithEmailLink,
   signInWithEmailLink,
@@ -9,8 +8,7 @@ import {
   Auth,
   UserCredential,
 } from 'firebase/auth'
-
-const auth = getAuth()
+import { auth } from '@/lib/firebase'
 
 // ============ MAGIC LINK AUTH ============
 
@@ -89,11 +87,3 @@ export async function signOutUser(): Promise<void> {
   }
 }
 
-// ============ AUTH STATE GETTER ============
-
-/**
- * Get current auth instance (for use in hooks)
- */
-export function getAuthInstance(): Auth {
-  return auth
-}
